@@ -24,6 +24,7 @@ sudo git clone https://github.com/globedasher/fullstack /var/www/fullstack
 
 cd /var/www/fullstack
 sudo npm install -y
+sudo npm install -g bower
 sudo bower install --allow-root
 
 sudo rm /etc/nginx/sites-available/default

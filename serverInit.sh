@@ -2,8 +2,8 @@
 
 # Add the key and move a sources list into the apt directory to add access to
 # the MongoDB repositories for Ubuntu.
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
 sudo mv mongodb-org-3.4.list /etc/apt/sources.list.d/
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
 
 # Update and install all needed applications.
 sudo apt-get update

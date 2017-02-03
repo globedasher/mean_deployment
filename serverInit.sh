@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 sudo apt-get update
 sudo apt-get install -y build-essential openssl libssl-dev pkg-config
@@ -14,31 +14,19 @@ sudo n stable
 sudo apt-get install nginx
 sudo apt-get install git
 
-cd /var/www/
-git clone https://github.com/globedasher/fullstack
+sudo git clone https://github.com/globedasher/fullstack /var/www/fullstack
 
 
 sudo rm /etc/nginx/sites-available/default
 sudo rm /etc/nginx/sites-enabled/default
 
-echo"
-server {
-    listen 80;
-    location / {
-        proxy_pass http://{{ PRIVATE-IP }}:8000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-" | sudo tee /etc/nginx/sites-available/fullstack
+sudo mv nginx.conf /etc/nginx/sites-available/fullstack
 
 sudo ln -s /etc/nginx/sites-available/fullstack /etc/nginx/sites-enabled/fullstack
 
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
-echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+
+sudo mv mongodb-org-3.4.list /etc/apt/sources.list.d/
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 sudo service mongodb start

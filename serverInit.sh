@@ -1,5 +1,16 @@
 #!/bin/bash
 
+echo "Please enter the target project name(github repo and file name):"
+read PROJECT_NAME
+echo $PROJECT_NAME
+
+echo "Please enter the github user name:"
+read USER_NAME
+echo $USER_NAME
+
+# Clone MEAN project from github location to /var/www/{{ PROJECT_NAME }}
+sudo git clone https://github.com/$USER_NAME/$PROJECT_NAME /var/www/$PROJECT_NAME
+
 # Add the key and move a sources list into the apt directory to add access to
 # the MongoDB repositories for Ubuntu.
 sudo mv mongodb-org-3.4.list /etc/apt/sources.list.d/
@@ -31,13 +42,10 @@ echo"Installs complete. Moving on to configuration..."
 
 # Move the nginx configuration file to the sites available/{{ PROJECT_NAME}}
 # location
-sudo mv nginx.conf /etc/nginx/sites-available/fullstack
-
-# Clone MEAN project from github location to /var/www/{{ PROJECT_NAME }}
-sudo git clone https://github.com/globedasher/fullstack /var/www/fullstack
+sudo mv nginx.conf /etc/nginx/sites-available/$PROJECT_NAME
 
 # Move to the project file and install project dependencies
-cd /var/www/fullstack
+cd /var/www/$PROJECT_NAME
 sudo npm install -y
 sudo bower install --allow-root
 
@@ -46,13 +54,13 @@ sudo rm /etc/nginx/sites-available/default
 sudo rm /etc/nginx/sites-enabled/default
 
 # Create symlink to newly avaible project.
-sudo ln -s /etc/nginx/sites-available/fullstack /etc/nginx/sites-enabled/fullstack
+sudo ln -s /etc/nginx/sites-available/$PROJECT_NAME /etc/nginx/sites-enabled/$PROJECT_NAME
 
 # Ensure mongod is started.
 sudo service mongod start
 
 # Move to the project directory and start the project.
-cd /var/www/fullstack
+cd /var/www/$PROJECT_NAME
 pm2 start server.js
 # Reload and restart nginx.
 sudo service nginx reload && sudo service nginx restart

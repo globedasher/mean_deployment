@@ -2,11 +2,9 @@
 
 echo "Please enter the target project name(github repo and file name):"
 read PROJECT_NAME
-echo $PROJECT_NAME
 
 echo "Please enter the github user name:"
 read USER_NAME
-echo $USER_NAME
 
 # Clone MEAN project from github location to /var/www/{{ PROJECT_NAME }}
 sudo git clone https://github.com/$USER_NAME/$PROJECT_NAME /var/www/$PROJECT_NAME

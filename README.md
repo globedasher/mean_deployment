@@ -1,6 +1,8 @@
-The serverInit.sh script has been created to be run on a unix-like system that
-runs bash shell scripts. The purpose is to deploy a MEAN application as
-taught by Coding Dojo.
+The serverInit.sh script has been created to be run on a debian like system
+that runs bash shell scripts and requires the mongodb-org-3.4.list file to be
+added to install MongoDB. 
+
+The purpose is to deploy a MEAN application as taught by Coding Dojo.
 
 At this time, it only clones GitHub repos.
 
